@@ -15,9 +15,11 @@
                 <div><i class="fa fa-key"></i> <span tkey="usernameDesc">This is your wallet address</span></div>
                 <div id="paymentId"><i class="fa fa-exchange"></i> <span tkey="paymentId">Exchange Payment ID</span>: <span><u tkey="address">address</u><span id="paymentIdSeparator">.</span><u tkey="addrPaymentId">paymentID</u></span></div>
                 <div id="fixedDiff"><i class="fa fa-wrench"></i> <span tkey="fixedDiff">Difficulty locking</span>: <span><u tkey="address">address</u><span id="fixedDiffSeparator">+</span><u tkey="addrDiff">diff</u></span></div>
+<div id="fixedDiff"><i class="fa fa-code"></i> <span tkey="">Exchange Payment ID and Difficulty locking</span>: <u>address</u>+<u>diff</u>.<u>paymentID</u></div>
+
             </div>
         </div>
-	    
+
         <h4 class="push-up-15"><span tkey="password">Password</span></h4>
         <div class="card padding-l-10 padding-r-10">
             <div class="stats">
@@ -50,7 +52,7 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 
 <!-- Mining Applications and Configuration Generator -->
@@ -81,7 +83,7 @@
         <div class="col-sm-6 col-xs-12">
             <div class="input-group push-down-5">
                 <span class="input-group-addon"><i class="fa fa-server"></i></span>
-                <input class="form-control" id="gWorkerName" tplaceholder="workerNameField" type="text" placeholder="Worker_Name" /> 
+                <input class="form-control" id="gWorkerName" tplaceholder="workerNameField" type="text" placeholder="Worker_Name" />
             </div>
         </div>
         <div class="col-sm-6 col-xs-12">
@@ -90,6 +92,23 @@
                 <input class="form-control" id="gDifficulty" type="text" tplaceholder="fixedDiffField" placeholder="Fixed difficulty (optional)" />
             </div>
         </div>
+
+<br><br>
+<div class="col-md-12 push-up-5">
+
+<label class="checkbox-inline"><input type="checkbox" id="gpu0" checked>GPU 0</label>
+<label class="checkbox-inline"><input type="checkbox" id="gpu1" checked>GPU 1</label>
+<label class="checkbox-inline"><input type="checkbox" id="gpu2" checked>GPU 2</label>
+<label class="checkbox-inline"><input type="checkbox" id="gpu3" checked>GPU 3</label>
+<label class="checkbox-inline"><input type="checkbox" id="gpu4" checked>GPU 4</label>
+<label class="checkbox-inline"><input type="checkbox" id="gpu5" checked>GPU 5</label>
+<label class="checkbox-inline"><input type="checkbox" id="gpu6" checked>GPU 6</label>
+<label class="checkbox-inline"><input type="checkbox" id="gpu7" checked>GPU 7</label>
+</div>
+<br><br>
+
+
+
         <div class="col-md-12 push-up-5">
             <input id="generateConf" type="submit" tvalue="generateConfig" value="Generate configuration" class="btn btn-default"  data-toggle="collapse" href="#xmrstak" />
         </div>
@@ -102,27 +121,32 @@
         <table class="table">
             <thead>
             <tr>
-                <th><i class="fa fa-book"></i> <span tkey="appName">App Name</span></th>
-                <th><i class="fa fa-car"></i> <span tkey="appArch">Architecture</span></th>
-                <th><i class="fa fa-star"></i> <span tkey="appDesc">Features</span></th>
-                <th><i class="fa fa-download"></i> <span tkey="download">Download</span></th>
-                <th><i class="fa fa-file-code-o"></i> <span tkey="configuration">Configuration</span></th>
+                <th><i class="fa fa-book"></i> Software Name</th>
+        <th><i class="fa fa-user"></i> OS Support</th>
+        <th><i class="fa fa-desktop"></i> Hardware Support</th>
+        <th><i class="fa fa-comments"></i> Main Page</th>
+        <th><i class="fa fa-download"></i> Download Page</th>
+        <th><i class="fa fa-file-code-o"></i> Source Code</th>
+        <th><i class="fa fa-code"></i> Generate Configuration
             </tr>
             </thead>
             <tbody id="miningApps_rows">
-	    
-	    <!-- XMR Stak -->
+
+            <!-- XMR Stak -->
             <tr class="appInfo">
-                <td class="miningAppTitle">XMR Stak</td>
-                <td>CPU & GPU (AMD/NVIDIA)</td>
-                <td>Easy to use CPU + GPU Mining App</td>
-                <td><a class="btn btn-success" target="_blank" href="https://github.com/fireice-uk/xmr-stak/releases/latest"><span tkey="download">Download</span></a></td>
-                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrstak" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">See more</span></a></td>
+                <td>XMR-Stak</td>
+        <td>Windows, Linux</td>
+        <td>CPU, Nvidia, AMD</td>
+           <td><a href="https://github.com/fireice-uk/xmr-stak" target="_blank">Github</a></td>
+        <td><a href="https://github.com/fireice-uk/xmr-stak/releases" target="_blank">Github</a></td>
+        <td><a href="https://github.com/fireice-uk/xmr-stak" target="_blank">Github</a></td>
+
+                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrstak" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">Show Configuration</span></a></td>
             </tr>
             <tr class="appConfig">
                 <td colspan="5">
                     <div class="collapse" id="xmrstak">
-		
+
 <pre><code>"pool_list": [
     {
         "pool_address": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
@@ -140,114 +164,48 @@
                     </div>
                 </td>
             </tr>
-	    
-	    <!-- XMRig -->
+
+            <!-- Claymore's CryptoNight AMD GPU Miner -->
             <tr class="appInfo">
-                <td class="miningAppTitle">XMRig</td>
-                <td>CPU</td>
-                <td>Ligthweight but powerful CPU Mining App</td>
-                <td><a class="btn btn-success" target="_blank" href="https://github.com/xmrig/xmrig/releases/latest"><span tkey="download">Download</span></a></td>
-                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">See more</span></a></td>
+                <td>Claymore's CryptoNight AMD GPU Miner</td>
+        <td>Windows, Linux</td>
+        <td>AMD</td>
+           <td><a href="https://bitcointalk.org/index.php?topic=638915.0" target="_blank">BitcoinTalk</a></td>
+        <td><a href="https://bitcointalk.org/index.php?topic=638915.0" target="_blank">BitcoinTalk</a></td>
+        <td>Proprietary</td>
+
+                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">Show Configuration</span></a></td>
             </tr>
             <tr class="appConfig">
                 <td colspan="5">
                     <div class="collapse" id="xmrig">
-		
-<pre><code>"pools": [
-    {
-        "url": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
-        "user": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
-        "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
-        "keepalive": true,
-        "nicehash": false,
-        "variant": 1
-    }
-],</code></pre>
+<pre><code>NsGpuCNMiner.exe -xpool <span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span> -xwal <span class="exampleLogin">YOUR_WALLET_ADDRESS</span> -xpsw <span class="examplePassword">YOUR_WORKER_NAME</span><span class="examplegpusettingsclaymorescryptonightamdgpuminer">YOUR_WORKER_NAME</span></code></pre>
 
                     </div>
                 </td>
             </tr>
 
-	    <!-- XMRig-AMD -->
+            <!-- Cast XMR -->
             <tr class="appInfo">
-                <td class="miningAppTitle">XMRig-AMD</td>
-                <td>OpenCL (AMD)</td>
-                <td>XMRIG version for AMD GPU</td>
-                <td><a class="btn btn-success" target="_blank" href="https://github.com/xmrig/xmrig-amd/releases/latest"><span tkey="download">Download</span></a></td>
-                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig-amd" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">See more</span></a></td>
+                <td>Cast XMR</td>
+        <td>Windows</td>
+        <td>AMD (RX and VEGA series only)</td>
+           <td><a href="https://bitcointalk.org/index.php?topic=2256917.0" target="_blank">BitcoinTalk</a></td>
+        <td><a href="https://bitcointalk.org/index.php?topic=2256917.0" target="_blank">BitcoinTalk</a></td>
+        <td>Proprietary</td>
+
+                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig-amd" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">Show Command Line Configuration</span></a></td>
             </tr>
             <tr class="appConfig">
                 <td colspan="5">
                     <div class="collapse" id="xmrig-amd">
-		
-<pre><code>"pools": [
-    {
-        "url": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
-        "user": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
-        "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>"
-        "keepalive": true,
-        "nicehash": false,
-        "variant": 1
-    }
-],</code></pre>
+<pre><code>cast_xmr-vega.exe -S <span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span> -u <span class="exampleLogin">YOUR_WALLET_ADDRESS</span> -p <span class="examplePassword">YOUR_WORKER_NAME</span><span class="examplegpusettingscastxmr">YOUR_WORKER_NAME</span></code></pre>
 
                     </div>
                 </td>
             </tr>
 
-	    <!-- XMRig-NVIDIA -->
-            <tr class="appInfo">
-                <td class="miningAppTitle">XMRig-NVIDIA</td>
-                <td>Cuda (Nvidia)</td>
-                <td>XMRIG version for Nvidia GPU</td>
-                <td><a class="btn btn-success" target="_blank" href="https://github.com/xmrig/xmrig-nvidia/releases/latest"><span tkey="download">Download</span></a></td>
-                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig-nvidia" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">See more</span></a></td>
-            </tr>
-            <tr class="appConfig">
-                <td colspan="5">
-                    <div class="collapse" id="xmrig-nvidia">
-		
-<pre><code>"pools": [
-    {
-        "url": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
-        "user": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
-        "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>"
-        "keepalive": true,
-        "nicehash": false,
-        "variant": 1
-    }
-],</code></pre>
 
-                    </div>
-                </td>
-            </tr>
-
-	    <!-- XMRigCC -->
-            <tr class="appInfo">
-                <td class="miningAppTitle">XMRigCC</td>
-                <td>CPU</td>
-                <td>XMRIG Fork, optimized with remote control</td>
-                <td><a class="btn btn-success" target="_blank" href="https://github.com/Bendr0id/xmrigCC/releases/latest"><span tkey="download">Download</span></a></td>
-                <td><a class="btn btn-default" role="button" data-toggle="collapse" href="#xmrig-cc" aria-expanded="true" aria-controls="collapseExample"><span tkey="showConfig">See more</span></a></td>
-            </tr>
-            <tr class="appConfig">
-                <td colspan="5">
-                    <div class="collapse" id="xmrig-cc">
-		
-<pre><code>"pools": [
-    {
-        "url": "<span class="exampleHost">POOL_HOST</span>:<span class="examplePort">PORT</span>",
-        "user": "<span class="exampleLogin">YOUR_WALLET_ADDRESS</span>",
-        "pass": "<span class="examplePassword">YOUR_WORKER_NAME</span>",
-        "keepalive": true,
-        "nicehash": false
-    },
-],</code></pre>
-
-                    </div>
-                </td>
-            </tr>
-	    
             </tbody>
         </table>
     </div>
@@ -273,7 +231,7 @@ currentPage = {
         if (lastPortsJson !== portsJson) {
             lastPortsJson = portsJson;
             var $miningPortChildren = [];
-	    var $miningPortOptions = [];
+            var $miningPortOptions = [];
             for (var i = 0; i < lastStats.config.ports.length; i++) {
                 var portData = lastStats.config.ports[i];
                 var $portChild = $(miningPortTemplate);
@@ -281,7 +239,7 @@ currentPage = {
                 $portChild.find('.miningPortDiff').text(formatDifficulty(portData.difficulty));
                 $portChild.find('.miningPortDesc').text(portData.desc);
                 $miningPortChildren.push($portChild);
-		$miningPortOptions.push('<option value="'+portData.port+'">'+portData.port+' &ndash; '+portData.desc+'</option>');
+                $miningPortOptions.push('<option value="'+portData.port+'">'+portData.port+' &ndash; '+portData.desc+'</option>');
             }
             $miningPorts.empty().append($miningPortChildren);
             $miningPortSelect.empty().append($miningPortOptions);
@@ -324,9 +282,6 @@ currentPage = {
             } else if (cnVariant === 3) {
                 algorithm = 'Cryptonight (Stellite v7)';
                 xmrstakAlgo = 'cryptonight_v7_stellite';
-	    } else if (cnVariant === 4) {
-                algorithm = 'Cryptonight Fast (Masari)';
-                xmrstakAlgo = 'cryptonight_masari';
             } else {
                 algorithm = 'Cryptonight (Original)';
                 xmrstakAlgo = 'cryptonight';
@@ -361,6 +316,26 @@ currentPage = {
  **/
 
 $('#generateConf').click(function() {
+
+// error check
+if (document.getElementById("gAddress").value == "")
+{
+alert("Please enter a XCASH address");
+return;
+}
+if (document.getElementById("gAddress").value.substring(0,3) !== "XCA" && document.getElementById("gAddress").value.substring(0,3) !== "XCB")
+{
+alert("Please enter a valid XCASH address");
+return;
+}
+if (document.getElementById("gAddress").value.substring(0,3) === "XCB" && document.getElementById("gPaymentID").value != "")
+{
+alert("When using an integrated address, please do not provide a payment ID");
+return;
+}
+
+
+
     // Mining Port
     var port = $('#gMiningPort').val();
     updateTextClasses('examplePort', port);
@@ -369,7 +344,7 @@ $('#generateConf').click(function() {
     var address = $('#gAddress').val().replace(/\s+/g, '').trim();
     var paymentID = $('#gPaymentID').val().replace(/\s+/g, '').trim();
     var difficulty = parseInt($('#gDifficulty').val().replace(/\s+/g, '').trim());
-    
+
     var login = address ? address : 'YOUR_WALLET_ADDRESS';
     if (paymentID) login = login + lastStats.config.paymentIdSeparator + paymentID;
     if (difficulty) login = login + lastStats.config.fixedDiffSeparator + difficulty;
@@ -379,6 +354,55 @@ $('#generateConf').click(function() {
     var workerName = $('#gWorkerName').val().replace(/\s+/g, '').trim();
 
     var password = workerName ? workerName : 'x';
-    updateTextClasses('examplePassword', password);    
+    updateTextClasses('examplePassword', password);
+
+//  GPU settings
+var gpusettingsclaymorescryptonightamdgpuminer = " -di ";
+var gpusettingscastxmr = " -G ";
+
+if (document.getElementById("gpu0").checked === true)
+{
+gpusettingsclaymorescryptonightamdgpuminer += "0";
+gpusettingscastxmr += "0,";
+}
+if (document.getElementById("gpu1").checked === true)
+{
+gpusettingsclaymorescryptonightamdgpuminer += "1";
+gpusettingscastxmr += "1,";
+}
+if (document.getElementById("gpu2").checked === true)
+{
+gpusettingsclaymorescryptonightamdgpuminer += "2";
+gpusettingscastxmr += "2,";
+}
+if (document.getElementById("gpu3").checked === true)
+{
+gpusettingsclaymorescryptonightamdgpuminer += "3";
+gpusettingscastxmr += "3,";
+}
+if (document.getElementById("gpu4").checked === true)
+{
+gpusettingsclaymorescryptonightamdgpuminer += "4";
+gpusettingscastxmr += "4,";
+}
+if (document.getElementById("gpu5").checked === true)
+{
+gpusettingsclaymorescryptonightamdgpuminer += "5";
+gpusettingscastxmr += "5,";
+}
+if (document.getElementById("gpu6").checked === true)
+{
+gpusettingsclaymorescryptonightamdgpuminer += "6";
+gpusettingscastxmr += "6,";
+}
+if (document.getElementById("gpu7").checked === true)
+{
+gpusettingsclaymorescryptonightamdgpuminer += "7";
+gpusettingscastxmr += "7,";
+}
+gpusettingscastxmr = gpusettingscastxmr.substr(0,gpusettingscastxmr.length - 1);
+
+updateTextClasses('examplegpusettingsclaymorescryptonightamdgpuminer', gpusettingsclaymorescryptonightamdgpuminer);
+updateTextClasses('examplegpusettingscastxmr', gpusettingscastxmr);
 });
 </script>
