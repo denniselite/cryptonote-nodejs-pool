@@ -1,7 +1,7 @@
 cryptonote-nodejs-pool
 ======================
 
-High performance Node.js (with native C addons) mining pool for CryptoNote based coins. Comes with lightweight example front-end script which uses the pool's AJAX API. Support for Cryptonight (Original, Monero v7, Stellite v7), Cryptonight Light (Original, Aeon v7, IPBC) and Cryptonight Heavy (Sumokoin) algorithms.
+High performance Node.js (with native C addons) mining pool for [X-Cash](https://x-cash.org) . Comes with a lightweight example front-end script, which uses the pool's AJAX API.
 
 
 #### Table of Contents
@@ -75,6 +75,7 @@ Features
 * Coin daemon & wallet RPC services stability monitoring
 * Log files data access
 * Users list with detailed statistics
+* Logs all tx_hash and tx_key to prove payments have been sent
 
 #### Pool stability monitoring
 * Detailed logging in process console & log files
@@ -93,27 +94,17 @@ Features
 
 Community / Support
 ===
-
-* [GitHub Wiki](https://github.com/dvandal/cryptonote-nodejs-pool/wiki)
-* [GitHub Issues](https://github.com/dvandal/cryptonote-nodejs-pool/issues)
-* [Telegram Group](http://t.me/CryptonotePool)
+* [GitHub Issues](https://github.com/X-CASH-official/cryptonote-nodejs-pool/issues)
 
 #### Pools Using This Software
-
-* https://imaginary.stream/
-* https://graft.anypool.net/
-* https://graft.dark-mine.su/
-* http://itns.proxpool.com/
-* https://bytecoin.pt
-* http://ita.minexmr24.ru/
-* https://pool.croatpirineus.cat
+* http://minexcash.com
 
 Usage
 ===
 
 #### Requirements
 * Coin daemon(s) (find the coin's repo and build latest version from source)
-  * [List of Cryptonote coins](https://github.com/dvandal/cryptonote-nodejs-pool/wiki/Cryptonote-Coins)
+  * [X-Cash](EDIT THIS LINK)
 * [Node.js](http://nodejs.org/) v4.0+
   * For Ubuntu: 
  ```
@@ -163,7 +154,7 @@ npm update
 
 #### 2) Configuration
 
-Copy the `config_examples/COIN.json` file of your choice to `config.json` then overview each options and change any to match your preferred setup.
+Open the `config.json` file, then overview each options and change any to match your preferred setup.
 
 Explanation for each field:
 ```javascript
@@ -171,22 +162,19 @@ Explanation for each field:
 "poolHost": "your.pool.host",
 
 /* Used for storage in redis so multiple coins can share the same redis instance. */
-"coin": "graft",
+"coin": "xcash",
 
 /* Used for front-end display */
-"symbol": "GRFT",
+"symbol": "XCH",
 
 /* Minimum units in a single coin, see COIN constant in DAEMON_CODE/src/cryptonote_config.h */
-"coinUnits": 10000000000,
+"coinUnits": 1000000,
 
 /* Number of coin decimals places for notifications and front-end */
-"coinDecimalPlaces": 4,
+"coinDecimalPlaces": 6,
   
 /* Coin network time to mine one block, see DIFFICULTY_TARGET constant in DAEMON_CODE/src/cryptonote_config.h */
-"coinDifficultyTarget": 120,
-
-/* Set daemon type. Supported values: default, forknote (Fix block height + 1), bytecoin (ByteCoin Wallet RPC API) */
-"daemonType": "default",
+"coinDifficultyTarget": 60,
 
 /* Set Cryptonight algorithm settings.
    Supported algorithms: cryptonight (default). cryptonight_light and cryptonight_heavy
@@ -221,6 +209,11 @@ Explanation for each field:
     }
 },
 
+"customlogfiles": {
+      "transactionDetails": "logs/payments_txkey.log" // the log file to store the tx_hash and tx_key pairs to prove payments. 
+   },
+
+
 /* Modular Pool Server */
 "poolServer": {
     "enabled": true,
@@ -232,16 +225,16 @@ Explanation for each field:
     "clusterForks": "auto",
 
     /* Address where block rewards go, and miner payments come from. */
-    "poolAddress": "GBqRuitSoU3PFPBAkXMEnLdBRWXH4iDSD6RDxnQiEFjVJhWUi1UuqfV5EzosmaXgpPGE6JJQjMYhZZgWY8EJQn8jQTsuTit",
+    "poolAddress": "",
 
     /* This is the integrated address prefix used for miner login validation. */
-    "intAddressPrefix": 91,
+    "intAddressPrefix": 0x3fc134,
 
     /* Poll RPC daemons for new blocks every this many milliseconds. */
     "blockRefreshInterval": 1000,
 
     /* How many seconds until we consider a miner disconnected. */
-    "minerTimeout": 900,
+    "minerTimeout": 600,
 
     "sslCert": "./cert.pem", // The SSL certificate
     "sslKey": "./privkey.pem", // The SSL private key
@@ -337,7 +330,8 @@ Explanation for each field:
     "interval": 300, // How often to run in seconds
     "maxAddresses": 50, // Split up payments if sending to more than this many addresses
     "mixin": 5, // Number of transactions yours is indistinguishable from
-    "priority": 0, // The transaction priority    
+    "priority": 0, // The transaction priority 
+    "get_tx_keys": true, // true if you want to record the tx_key of each payment you send out.
     "transferFee": 4000000000, // Fee to pay for each transaction
     "dynamicTransferFee": true, // Enable dynamic transfer fee (fee is multiplied by number of miners)
     "minerPayFee" : true, // Miner pays the transfer fee instead of pool owner when using dynamic transfer fee
@@ -622,7 +616,7 @@ var api = "http://poolhost:8117";
 var poolHost = "poolhost.com";
 
 /* Number of coin decimals places (override daemon setting if set) */
-"coinDecimalPlaces": 4,
+"coinDecimalPlaces": 6,
 
 /* Contact email address. */
 var email = "support@poolhost.com";
@@ -637,13 +631,13 @@ var discord = "https://discordapp.com/invite/YourPool";
 var marketCurrencies = ["{symbol}-BTC", "{symbol}-USD", "{symbol}-EUR", "{symbol}-CAD"];
 
 /* Used for front-end block links. */
-var blockchainExplorer = "http://chainradar.com/{symbol}/block/{id}";
+var blockchainExplorer = "https://explorer.x-cash.org/block/{id}";
 
 /* Used by front-end transaction links. */
-var transactionExplorer = "http://chainradar.com/{symbol}/transaction/{id}";
+var transactionExplorer = "https://explorer.x-cash.org/tx/{id}";
 
 /* Any custom CSS theme for pool frontend */
-var themeCss = "themes/light.css";
+var themeCss = "themes/default.css";
 
 /* Default language */
 var defaultLang = 'en';
@@ -745,7 +739,7 @@ curl 127.0.0.1:18081/json_rpc -d '{"method":"getblockheaderbyheight","params":{"
 Donations
 ---------
 
-Thanks for supporting my works on this project! If you want to make a donation to [Daniel Vandal](https://github.com/dvandal/), the developper of this project, you can send any amount of your choice to one of theses addresses:
+If you want to make a donation to [Daniel Vandal](https://github.com/dvandal/), developer of cryptonote-nodejs-pool project, from which the current project is forked, you can send any amount of your choice to one of theses addresses:
 
 * Bitcoin (BTC): `17XRyHm2gWAj2yfbyQgqxm25JGhvjYmQjm`
 * Bitcoin Cash (BCH): `qpl0gr8u3yu7z4nzep955fqy3w8m6w769sec08u3dp`
@@ -762,7 +756,7 @@ Thanks for supporting my works on this project! If you want to make a donation t
 Credits
 ---------
 
-* [fancoder](//github.com/fancoder) - Developper on cryptonote-universal-pool project from which current project is forked.
+* [Daniel Vandal](https://github.com/dvandal/) - Developer of cryptonote-nodejs-pool project from which the current project is forked.
 
 License
 -------
