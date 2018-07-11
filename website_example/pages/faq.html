@@ -20,35 +20,3 @@
 
 <h4 tkey="faq7_title">How is the current payout estimate calculated?</h4>
 <div class="card padding-15 push-down-10" tkey="faq7_text">The estimated payout is calculated using your percentage of valid shares on the total for current round. This percentage is then applied to the reward of the last block found by the network.</div>
-
-
-
-<!-- Javascript -->
-<script>
-// Update current page
-currentPage = {
-    destroy: function(){},
-    update: function(){
-        if (!lastStats.config.telegramBotName) {
-            $('#telegramBot').hide();
-        } else {
-            var botName = lastStats.config.telegramBotName;
-            var botURL = 'https://t.me/'+botName;
-            $('#telegramBotURL').attr('href', botURL);
-            updateText('telegramBotName', botName);
-	    
-            var botStats = lastStats.config.telegramBotStats;
-            if (botStats) updateText('botStats', botStats);
-
-            var botReport = lastReport.config.telegramBotReport;
-            if (botReport) updateText('botReport', botReport);
-
-            var botNotify = lastNotify.config.telegramBotNotify;
-            if (botNotify) updateText('botNotify', botNotify);
-
-            var botBlocks = lastBlocks.config.telegramBotBlocks;
-            if (botBlocks) updateText('botBlocks', botBlocks);
-        }	
-    }
-};
-</script>
