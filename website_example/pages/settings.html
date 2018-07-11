@@ -2,7 +2,7 @@
 <h3><span tkey="verificationFields">Verification fields</span></h3>
 
 <div class="card padding-15 padding-b-10">
-    <p><span tkey="minerVerification">In order to get a little more confidence that the wallet address is yours we ask you to give one of the IP addresses that is used by your miner.</span></p>
+    <p><span tkey="minerVerification">To confirm that the wallet address is yours, we ask you to give us one of the IP addresses that is used by your miner.</span></p>
     <div>
       <div id="action_update_message" role="alert" ></div>
     </div>
@@ -23,7 +23,7 @@
 <!-- Minimum payout level -->
 <h3><span tkey="setMinimumPayout">Set your minimal payout level</span></h3>
 <div class="card padding-15 padding-b-10">
-    <p><span tkey="minerMinPayout">If you prefer a higher payout level than the pool's default then this is where you can change it for your miners. The amount you indicate here will become the minimum amount for pool payments to your address.</span></p>
+    <p><span tkey="minerMinPayout">If you prefer a higher payout level than the pool's default, then this is where you can change it for your miners. The amount you indicate here will become the minimum amount for pool payments to your address.</span></p>
     <div class="row">
         <label class="col-lg-2 col-sm-3 col-form-label col-form-label-lg" for="yourPayoutRate"><span tkey="minimumPayout">Minimum payout</span>:</label>
         <div class="col-sm-2 push-down-5">
@@ -60,11 +60,15 @@
 </div>
 
 <script>
+
+// Constants
+var MAX_PAYMOUNT_THRESHOLD = 10000000; // the maximum payment threshold they can set in the mining pool.
+
 // Update current page
 currentPage = {
     destroy: function(){},
     update: function(){
-	if (!lastStats.config.sendEmails) $('#emailNotifications').hide();
+        if (!lastStats.config.sendEmails) $('#emailNotifications').hide();
     }
 };
 
@@ -103,7 +107,7 @@ function showSuccess(id, message) {
 // Get current payout level
 function getPayoutLevel(address) {
     if (!address || address == '') return;
-    
+
     $.ajax({
         url: api + '/get_miner_payout_level',
         data: {
@@ -116,11 +120,16 @@ function getPayoutLevel(address) {
             $('#yourPayoutRate').val(data.level);
         }
     });
-} 
+}
 
 // Set payout level
 function setPayoutLevel(address, ip, level) {
-    $.ajax({
+if (level > MAX_PAYMOUNT_THRESHOLD)
+{
+showError('error', 'Error:','Maximum amount is ' + MAX_PAYMOUNT_THRESHOLD);
+return;
+}
+$.ajax({
         url: api + '/set_miner_payout_level',
         data: {
             address: address,
@@ -174,7 +183,7 @@ function isEmail(email) {
 // Get current email address for notifications
 function getEmailAddress(address) {
     if (!address || address == '') return;
-    
+
     $.ajax({
         url: api + '/get_email_notifications',
         data: {
@@ -188,7 +197,7 @@ function getEmailAddress(address) {
         }
     });
 }
-    
+
 // Set email address for notifications
 function setEmailNotifications(email, address, ip, enable) {
     var address = $('#yourAddress').val().trim();
