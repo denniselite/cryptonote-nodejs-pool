@@ -162,10 +162,10 @@ Explanation for each field:
 "poolHost": "your.pool.host",
 
 /* Used for storage in redis so multiple coins can share the same redis instance. */
-"coin": "xcash",
+"coin": "X-CASH",
 
 /* Used for front-end display */
-"symbol": "XCH",
+"symbol": "XCA",
 
 /* Minimum units in a single coin, see COIN constant in DAEMON_CODE/src/cryptonote_config.h */
 "coinUnits": 1000000,
