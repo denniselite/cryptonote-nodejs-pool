@@ -1,7 +1,7 @@
 {
     "poolHost": "your.pool.host",
 
-    "coin": "xcash",
+    "coin": "X-CASH",
     "symbol": "XCA",
     "coinUnits": 1000000,
     "coinDecimalPlaces": 6,
