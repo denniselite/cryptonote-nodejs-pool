@@ -2,7 +2,7 @@
     "poolHost": "your.pool.host",
 
     "coin": "xcash",
-    "symbol": "XCH",
+    "symbol": "XCA",
     "coinUnits": 1000000,
     "coinDecimalPlaces": 6,
     "coinDifficultyTarget": 60,
@@ -56,7 +56,8 @@
             {
                 "port": 9000,
                 "difficulty": 50000,
-                "desc": "SSL"
+                "desc": "SSL",
+                "ssl": true
             },
             {
                 "port": 9999,
