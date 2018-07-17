@@ -5,7 +5,7 @@
         <div class="card padding-l-10 padding-r-10">
             <div class="stats">
                 <div><i class="fa fa-cloud"></i> <span tkey="miningPoolHost">Mining Pool Address</span>: <span id="miningPoolHost"></span></div>
-                <div><i class="fa fa-cubes"></i> <span tkey="cnAlgorithm">Algorithm</span>: <span id="cnAlgorithm"></span></div>
+                <div><i class="fa fa-cubes"></i> <span tkey="cnAlgorithm">Algorithm</span>: <span id="cnAlgorithm"></span><br><br><b>XCASH is ASIC resistant, however you need to set your mining software to cryptonight (old algorithm)</b></div>
             </div>
         </div>
 
@@ -316,26 +316,6 @@ currentPage = {
  **/
 
 $('#generateConf').click(function() {
-
-// error check
-if (document.getElementById("gAddress").value == "")
-{
-alert("Please enter a XCASH address");
-return;
-}
-if (document.getElementById("gAddress").value.substring(0,3) !== "XCA" && document.getElementById("gAddress").value.substring(0,3) !== "XCB")
-{
-alert("Please enter a valid XCASH address");
-return;
-}
-if (document.getElementById("gAddress").value.substring(0,3) === "XCB" && document.getElementById("gPaymentID").value != "")
-{
-alert("When using an integrated address, please do not provide a payment ID");
-return;
-}
-
-
-
     // Mining Port
     var port = $('#gMiningPort').val();
     updateTextClasses('examplePort', port);
