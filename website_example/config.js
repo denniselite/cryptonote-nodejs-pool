@@ -1,8 +1,8 @@
 var api = "YOUR_MINING_POOL_URL:8117";
 
-var email = "EMAIL";
-var telegram = "TELEGRAM";
-var discord = "DISCORD";
+var email = "support@poolhost.com";
+var telegram = "https://t.me/YourPool";
+var discord = "https://discordapp.com/invite/YourPool";
 
 var marketCurrencies = ["{symbol}-BTC", "{symbol}-USD", "{symbol}-EUR", "{symbol}-CAD"];
 
