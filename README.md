@@ -156,6 +156,9 @@ npm update
 
 Open the `config.json` file, then overview each options and change any to match your preferred setup.
 
+Note: This pool uses transfer_split for the RPC command. Becuase of this for the "payments": {"maxAddresses":
+the value must be 1, otherwise you may get errors when sending payments.
+
 Explanation for each field:
 ```javascript
 /* Pool host displayed in notifications and front-end */
@@ -328,8 +331,8 @@ Explanation for each field:
 "payments": {
     "enabled": true,
     "interval": 300, // How often to run in seconds
-    "maxAddresses": 50, // Split up payments if sending to more than this many addresses
-    "mixin": 5, // Number of transactions yours is indistinguishable from
+    "maxAddresses": 1, // Split up payments if sending to more than this many addresses
+    "mixin": 1, // Number of transactions yours is indistinguishable from
     "priority": 0, // The transaction priority 
     "get_tx_keys": true, // true if you want to record the tx_key of each payment you send out.
     "transferFee": 4000000000, // Fee to pay for each transaction
