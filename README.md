@@ -333,6 +333,7 @@ Explanation for each field:
     "enabled": true,
     "interval": 3600, // How often to run in seconds
     "maxAddresses": 1, // Split up payments if sending to more than this many addresses
+    "tx_privacy_settings": "settings", // "private" makes all transactions private. "public" makes all transactions public. "settings" allows each user to pick public or private transactions.
     "mixin": 20, // This has to be set to 20 for payments to work. Number of transactions yours is indistinguishable from
     "priority": 0, // The transaction priority 
     "get_tx_keys": true, // true if you want to record the tx_key of each payment you send out.

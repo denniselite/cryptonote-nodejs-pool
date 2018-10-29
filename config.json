@@ -105,6 +105,7 @@
         "enabled": true,
         "interval": 3600,
         "maxAddresses": 1,
+        "tx_privacy_settings": "settings",
         "mixin": 20,
         "priority": 1,
         "get_tx_keys": true,
