@@ -2,13 +2,13 @@
     "poolHost": "your.pool.host",
 
     "coin": "X-CASH",
-    "symbol": "XCA",
+    "symbol": "XCASH",
     "coinUnits": 1000000,
     "coinDecimalPlaces": 6,
     "coinDifficultyTarget": 60,
 
     "cnAlgorithm": "cryptonight",
-    "cnVariant": 1,
+    "cnVariant": 2,
     "cnBlobType": 0,
 
     "logging": {
@@ -105,7 +105,8 @@
         "enabled": true,
         "interval": 3600,
         "maxAddresses": 1,
-        "mixin": 1,
+        "tx_privacy_settings": "settings",
+        "mixin": 20,
         "priority": 1,
         "get_tx_keys": true,
         "transferFee": 5000,
@@ -119,7 +120,7 @@
  "blockUnlocker": {
         "enabled": true,
         "interval": 30,
-        "depth": 20,
+        "depth": 60,
         "poolFee": 1,
         "devDonation": 0.0,
         "networkFee": 0.0
@@ -149,7 +150,7 @@
 
     "wallet": {
         "host": "127.0.0.1",
-        "port": 18285
+        "port": YOUR_RPC_WALLET_PORT
     },
 
     "redis": {
