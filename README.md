@@ -573,7 +573,7 @@ Explanation for each field:
 As of X-CASH hard fork v10 (version 1.4.0) you know need to start the xcashd and xcash-wallet-rpc like the following
 ```
 ./xcashd
-./xcash-wallet-rpc --wallet-file YOU_WALLET_NAME --password YOUR_WALLET_PASSWORD --rpc-bind-port YOUR_WALLET_PORT --confirm-external-bind --daemon-port 18281 --disable-rpc-login --restricted-rpc --trusted-daemon
+./xcash-wallet-rpc --wallet-file YOU_WALLET_NAME --password YOUR_WALLET_PASSWORD --rpc-bind-port YOUR_WALLET_PORT --confirm-external-bind --daemon-port 18281 --disable-rpc-login --trusted-daemon
 ```
 
 #### 4) Start the pool
