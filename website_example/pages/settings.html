@@ -59,6 +59,25 @@
     </div>
 </div>
 
+<!-- Public Transactions -->
+<div id="publictransactions">
+    <h3><span tkey="enablepublictransactions">Enable Public Transactions</span></h3>
+    <div class="card padding-15 padding-b-10">
+        <p><span tkey="">This will enable/disable public transactions. Public transactions will allow you to see the senders address, amount and receivers address for the specific transaction in the explorer. By default this is disabled</span></p>
+<label id="yourpublictransactionsettings"></label>        
+<div class="row">
+              <div class="col-sm-4 push-down-5">
+                <button class="btn btn-success" type="button" id="publictransactionsenablebutton">
+                    <span><i class="fa fa-check"></i>&nbsp; <span tkey="enable">Enable</span></span>
+                </button>
+                <button class="btn btn-danger" type="button" id="publictransactionsdisablebutton">
+                    <span><i class="fa fa-ban"></i>&nbsp; <span tkey="disable">Disable</span></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 // Update current page
 currentPage = {
@@ -74,6 +93,7 @@ if (address){
     $('#yourAddress').val(address);
     getPayoutLevel(address);
     getEmailAddress(address);
+    getpublictransactionsettings(address);
 }
 
 /**
@@ -255,5 +275,101 @@ $('#disableButton').click(function(){
     var ip = $('#yourIP').val().trim();
     var email = $('#yourEmail').val();
     setEmailNotifications(email, address, ip, false);
+});
+
+
+
+function showalert(message,alerttype) {
+$('#action_update_message').append('<div id="alertdiv" class="alert ' +  alerttype + '"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>')
+setTimeout(() => $("#alertdiv").remove(), 5000);
+}
+ 
+function getpublictransactionsettings(address) {
+    if (!address || address == '') return;
+ 
+    $.ajax({
+        url: api + '/get_miner_public_transaction_settings',
+        data: {
+            address: address
+        },
+        dataType: 'json',
+        cache: 'false'
+    }).done(function(data){
+        var str;
+        if (data.settings != undefined) {
+            str = data.settings == 1 ? "Public transactions are currently enabled" : "Public transactions are currently disabled";
+        }
+        else
+        {
+          str = "Public transactions are currently disabled";
+        }
+        document.getElementById("yourpublictransactionsettings").textContent = str;
+    });
+}
+ 
+ 
+ 
+$('#publictransactionsenablebutton').click(function(){
+    var address = $('#yourAddress').val().trim();
+    var ip = $('#yourIP').val().trim();
+ 
+if (!address || address == '') {
+        showError('noMinerAddress', 'No miner address specified');
+        return;
+    }
+if (!ip || ip == '') {
+        showError('noMinerIP', 'No miner IP address specified');
+        return;
+    }
+ 
+ $.ajax({
+        url: api + '/set_miner_public_transaction_settings',
+        data: {
+            address: address,
+            ip: ip,
+            settings: 1
+        },
+        dataType: 'json',
+        cache: 'false'
+    }).done(function(data){
+        if (data.status == 'done') {
+            showSuccess('minerPayoutSet', 'Done! Public transactions are enabled');
+        } else {
+            showError('error', 'Error:', data.status);
+        }
+    });
+});
+ 
+ 
+ 
+$('#publictransactionsdisablebutton').click(function(){
+    var address = $('#yourAddress').val().trim();
+    var ip = $('#yourIP').val().trim();
+ 
+if (!address || address == '') {
+        showError('noMinerAddress', 'No miner address specified');
+        return;
+    }
+if (!ip || ip == '') {
+        showError('noMinerIP', 'No miner IP address specified');
+        return;
+    }
+ 
+ $.ajax({
+        url: api + '/set_miner_public_transaction_settings',
+        data: {
+            address: address,
+            ip: ip,
+            settings: 0
+        },
+        dataType: 'json',
+        cache: 'false'
+    }).done(function(data){
+        if (data.status == 'done') {
+            showSuccess('minerPayoutSet', 'Done! Public transactions are disabled');
+        } else {
+            showError('error', 'Error:', data.status);
+        }
+    });
 });
 </script>

@@ -3,6 +3,8 @@ cryptonote-nodejs-pool
 
 High performance Node.js (with native C addons) mining pool for [X-Cash](https://x-cash.org) . Comes with a lightweight example front-end script, which uses the pool's AJAX API.
 
+This pool supports public and private X-CASH transactions, as well as a "settings" option that allows each individual user to choose if they want public or private transactions.
+
 
 #### Table of Contents
 * [Features](#features)
