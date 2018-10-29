@@ -642,10 +642,10 @@ var discord = "https://discordapp.com/invite/YourPool";
 var marketCurrencies = ["{symbol}-BTC", "{symbol}-USD", "{symbol}-EUR", "{symbol}-CAD"];
 
 /* Used for front-end block links. */
-var blockchainExplorer = "https://explorer.x-cash.org/block/{id}";
+var blockchainExplorer = "https://explorer.x-cash.org/Block?data={id}";
 
 /* Used by front-end transaction links. */
-var transactionExplorer = "https://explorer.x-cash.org/tx/{id}";
+var transactionExplorer = "https://explorer.x-cash.org/Transaction?data={id}";
 
 /* Any custom CSS theme for pool frontend */
 var themeCss = "themes/default.css";
