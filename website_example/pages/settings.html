@@ -333,9 +333,9 @@ if (!ip || ip == '') {
         cache: 'false'
     }).done(function(data){
         if (data.status == 'done') {
-            showSuccess('minerPayoutSet', 'Done! Public transactions are enabled');
+            showalert('Done! Public transactions are enabled','alert-success');
         } else {
-            showError('error', 'Error:', data.status);
+            showalert('Error','alert-error');
         }
     });
 });
@@ -366,9 +366,9 @@ if (!ip || ip == '') {
         cache: 'false'
     }).done(function(data){
         if (data.status == 'done') {
-            showSuccess('minerPayoutSet', 'Done! Public transactions are disabled');
+            showalert('Done! Public transactions are disabled','alert-success');
         } else {
-            showError('error', 'Error:', data.status);
+            showalert('Error','alert-error');
         }
     });
 });
