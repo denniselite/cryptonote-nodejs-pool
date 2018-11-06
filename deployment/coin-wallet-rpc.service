@@ -7,7 +7,7 @@ Type=simple
 Restart=always
 
 # Change this line to set the location of your coin wallet RPC daemon and set the RPC port you want to use
-ExecStart=/path/to/coin/wallet-rpc --rpc-bind-ip=127.0.0.1 --rpc-bind-port=5432 --wallet=/path/to/wallet --password=your.wallet.password!
+ExecStart=screen -dmS RPC-Wallet /path/to/coin/xcash-wallet-rpc --wallet-file YOU_WALLET_NAME --password YOUR_WALLET_PASSWORD --rpc-bind-port YOUR_WALLET_PORT --confirm-external-bind --daemon-port 18281 --disable-rpc-login --restricted-rpc --trusted-daemon
 
 # Change this line to the user that will run your wallet RPC daemon
 User=pool-user

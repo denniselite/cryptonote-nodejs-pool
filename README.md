@@ -3,6 +3,8 @@ cryptonote-nodejs-pool
 
 High performance Node.js (with native C addons) mining pool for [X-Cash](https://x-cash.org) . Comes with a lightweight example front-end script, which uses the pool's AJAX API.
 
+This pool supports public and private X-CASH transactions, as well as a "settings" option that allows each individual user to choose if they want public or private transactions.
+
 
 #### Table of Contents
 * [Features](#features)
@@ -12,9 +14,10 @@ High performance Node.js (with native C addons) mining pool for [X-Cash](https:/
   * [Requirements](#requirements)
   * [Downloading & Installing](#1-downloading--installing)
   * [Configuration](#2-configuration)
-  * [Starting the Pool](#3-start-the-pool)
-  * [Host the front-end](#4-host-the-front-end)
-  * [Customizing your website](#5-customize-your-website)
+  * [Starting the Pool](#3-start the xcash daemon and rpc)
+  * [Starting the Pool](#4-start-the-pool)
+  * [Host the front-end](#5-host-the-front-end)
+  * [Customizing your website](#6-customize-your-website)
   * [SSL](#ssl)
   * [Upgrading](#upgrading)
 * [JSON-RPC Commands from CLI](#json-rpc-commands-from-cli)
@@ -168,7 +171,7 @@ Explanation for each field:
 "coin": "X-CASH",
 
 /* Used for front-end display */
-"symbol": "XCA",
+"symbol": "XCASH",
 
 /* Minimum units in a single coin, see COIN constant in DAEMON_CODE/src/cryptonote_config.h */
 "coinUnits": 1000000,
@@ -227,7 +230,7 @@ Explanation for each field:
        the 'forks' field can be a number for how many forks will be spawned. */
     "clusterForks": "auto",
 
-    /* Address where block rewards go, and miner payments come from. */
+    /* Public address where block rewards go, and miner payments come from. */
     "poolAddress": "",
 
     /* This is the integrated address prefix used for miner login validation. */
@@ -330,18 +333,19 @@ Explanation for each field:
 /* Module that sends payments to miners according to their submitted shares. */
 "payments": {
     "enabled": true,
-    "interval": 300, // How often to run in seconds
+    "interval": 3600, // How often to run in seconds
     "maxAddresses": 1, // Split up payments if sending to more than this many addresses
-    "mixin": 1, // Number of transactions yours is indistinguishable from
+    "tx_privacy_settings": "settings", // "private" makes all transactions private. "public" makes all transactions public. "settings" allows each user to pick public or private transactions.
+    "mixin": 20, // This has to be set to 20 for payments to work. Number of transactions yours is indistinguishable from
     "priority": 0, // The transaction priority 
     "get_tx_keys": true, // true if you want to record the tx_key of each payment you send out.
     "transferFee": 4000000000, // Fee to pay for each transaction
     "dynamicTransferFee": true, // Enable dynamic transfer fee (fee is multiplied by number of miners)
     "minerPayFee" : true, // Miner pays the transfer fee instead of pool owner when using dynamic transfer fee
-    "minPayment": 100000000000, // Miner balance required before sending payment
+    "minPayment": 10000000000, // Miner balance required before sending payment
     "maxPayment": null, // Maximum miner balance allowed in miner settings
     "maxTransactionAmount": 0, // Split transactions by this amount (to prevent "too big transaction" error)
-    "denomination": 10000000000 // Truncate to this precision and store remainder
+    "denomination": 10000000000000 // Truncate to this precision and store remainder
 },
 
 /* Module that monitors the submitted block maturities and manages rounds. Confirmed
@@ -354,8 +358,8 @@ Explanation for each field:
     /* Block depth required for a block to unlocked/mature. Found in daemon source as
        the variable CRYPTONOTE_MINED_MONEY_UNLOCK_WINDOW */
     "depth": 60,
-    "poolFee": 0.8, // 0.8% pool fee (1% total fee total including donations)
-    "devDonation": 0.2, // 0.2% donation to send to pool dev
+    "poolFee": 1, // 1% pool fee (you can do 1.1 etc)
+    "devDonation": 0.0, // 0% donation to send to pool dev
     "networkFee": 0.0, // Network/Governance fee (used by some coins like Loki)
     
     /* Some forknote coins have an issue with block height in RPC request, to fix you can enable this option.
@@ -368,7 +372,7 @@ Explanation for each field:
     "enabled": true,
     "hashrateWindow": 600, // How many second worth of shares used to estimate hash rate
     "updateInterval": 3, // Gather stats and broadcast every this many seconds
-    "bindIp": "0.0.0.0", // Bind API to a specific IP (set to 0.0.0.0 for all)
+    "bindIp": "PUBLIC_IP", // Bind API to a specific IP (set to your public IP)
     "port": 8117, // The API port
     "blocks": 30, // Amount of blocks to send at a time
     "payments": 30, // Amount of payments to send at a time
@@ -381,16 +385,16 @@ Explanation for each field:
     "trustProxyIP": false // Proxy X-Forwarded-For support
 },
 
-/* Coin daemon connection details (default port is 18981) */
+/* Coin daemon connection details has to be 18281 */
 "daemon": {
     "host": "127.0.0.1",
-    "port": 18981
+    "port": 18281
 },
 
-/* Wallet daemon connection details (default port is 18980) */
+/* Wallet daemon connection details */
 "wallet": {
     "host": "127.0.0.1",
-    "port": 18982
+    "port": YOUR_WALLET_RPC_PORT
 },
 
 /* Redis connection info (default port is 6379) */
@@ -565,7 +569,14 @@ Explanation for each field:
 }
 ```
 
-#### 3) Start the pool
+#### 3) Start the xcash daemon and rpc
+As of X-CASH hard fork v10 (version 1.4.0) you know need to start the xcashd and xcash-wallet-rpc like the following
+```
+./xcashd
+./xcash-wallet-rpc --wallet-file YOU_WALLET_NAME --password YOUR_WALLET_PASSWORD --rpc-bind-port YOUR_WALLET_PORT --confirm-external-bind --daemon-port 18281 --disable-rpc-login --trusted-daemon
+```
+
+#### 4) Start the pool
 
 ```bash
 node init.js
@@ -594,7 +605,7 @@ node init.js -module=api
 [Example screenshot](http://i.imgur.com/SEgrI3b.png) of running the pool in single module mode with tmux.
 
 To keep your pool up, on operating system with systemd, you can create add your pool software as a service.  
-Use this [example](https://github.com/dvandal/cryptonote-nodejs-pool/blob/master/deployment/cryptonote-nodejs-pool.service) to create the systemd service `/lib/systemd/system/cryptonote-nodejs-pool.service`
+Use this [example](https://github.com/X-CASH-official/cryptonote-nodejs-pool/blob/master/deployment/coin-daemon.service) to create the systemd service `/lib/systemd/system/cryptonote-nodejs-pool.service`
 Then enable and start the service with the following commands : 
 
 ```
@@ -602,7 +613,7 @@ sudo systemctl enable cryptonote-nodejs-pool.service
 sudo systemctl start cryptonote-nodejs-pool.service
 ```
 
-#### 4) Host the front-end
+#### 5) Host the front-end
 
 Simply host the contents of the `website_example` directory on file server capable of serving simple static files.
 
@@ -634,10 +645,10 @@ var discord = "https://discordapp.com/invite/YourPool";
 var marketCurrencies = ["{symbol}-BTC", "{symbol}-USD", "{symbol}-EUR", "{symbol}-CAD"];
 
 /* Used for front-end block links. */
-var blockchainExplorer = "https://explorer.x-cash.org/block/{id}";
+var blockchainExplorer = "https://explorer.x-cash.org/Block?data={id}";
 
 /* Used by front-end transaction links. */
-var transactionExplorer = "https://explorer.x-cash.org/tx/{id}";
+var transactionExplorer = "https://explorer.x-cash.org/Transaction?data={id}";
 
 /* Any custom CSS theme for pool frontend */
 var themeCss = "themes/default.css";
@@ -647,7 +658,7 @@ var defaultLang = 'en';
 
 ```
 
-#### 5) Customize your website
+#### 6) Customize your website
 
 The following files are included so that you can customize your pool website without having to make significant changes
 to `index.html` or other front-end files thus reducing the difficulty of merging updates with your own changes:
